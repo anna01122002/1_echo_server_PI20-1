@@ -5,8 +5,15 @@ sock.bind(('', 9090))
 sock.listen(0)
 conn, addr = sock.accept()
 print(addr)
+while True:
+	sock = socket.socket()
+	sock.bind(('', 9090))
+	sock.listen(0)
+	conn, addr = sock.accept()
+	print(addr)
 
 msg = ''
+	msg = ''
 
 while True:
 	data = conn.recv(1024)
@@ -14,7 +21,16 @@ while True:
 		break
 	msg += data.decode()
 	conn.send(data)
+	while True:
+		data = conn.recv(1024)
+		if not data:
+			break
+		msg += data.decode()
+		conn.send(data)
 
 print(msg)
+	print(msg)
+	if msg == 'exit':
+		conn.close()
 
 conn.close()
